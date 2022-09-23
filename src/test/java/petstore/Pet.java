@@ -86,4 +86,20 @@ public class Pet {
 
     }
 
+    @DisplayName("Cenário de exclusão de um pet")
+    @Test(priority = 4)
+    public void deletarPet(){
+        String petId = "2020";
+
+        given()
+                .contentType("application/json")
+        .when()
+                .delete(uri + "/" + petId)
+        .then()
+                .log().all()
+                .statusCode(200)
+                .body("type", is("unknown"))
+                .body("message", is(petId));
+    }
+
 }
