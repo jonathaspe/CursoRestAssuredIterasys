@@ -1,0 +1,18 @@
+{
+  "id": 2020,
+  "category": {
+    "id": 0,
+    "name": "cachorro"
+  },
+  "name": "Buddy",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 2807,
+      "name": "dog"
+    }
+  ],
+  "status": "available"
+}
