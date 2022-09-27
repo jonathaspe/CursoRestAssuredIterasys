@@ -11,8 +11,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.DisplayName;
 
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 //3 - Classe
 public class Pet {
@@ -79,15 +78,29 @@ public class Pet {
                 .put(uri)
         .then()
                 .statusCode(200)
-                .body("name", is("Buddy"))
+//                .body("name", is("Buddy"))
                 .body("category.name", is("cachorro"))
                 .body("tags.name", contains("dog")) //o contains é usado para listas
                 .body("status", is("sold"));
 
     }
 
-    @DisplayName("Cenário de exclusão de um pet")
+    @DisplayName("Cenário de consulta de um pet pelo status")
     @Test(priority = 4)
+    public void consultarPetByStatus(){
+        String status = "available";
+
+        given()
+                .contentType("application/json")
+        .when()
+                .get(uri + "/findByStatus?status=" + status)
+        .then()
+                .statusCode(200)
+                .body("name[]", everyItem(equalTo("Buddy")));
+    }
+
+    @DisplayName("Cenário de exclusão de um pet")
+    @Test(priority = 5)
     public void deletarPet(){
         String petId = "2020";
 
